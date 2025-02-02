@@ -1,0 +1,16 @@
+@for (cartEntry of cart(); track cartEntry) {
+  <p-card class="block mb-2">
+    <div class="grid">
+      <div class="col-6">
+        {{ cartEntry.product.name }}
+      </div>
+      <div class="col-4">
+        Quantity : {{ cartEntry.quantity }}
+      </div>
+      <div class="col-2">
+        <button pButton class="p-button-danger" icon="pi pi-times" (click)="removeFromCart(cartEntry.product)"></button>
+      </div>
+
+    </div>
+  </p-card>
+}
