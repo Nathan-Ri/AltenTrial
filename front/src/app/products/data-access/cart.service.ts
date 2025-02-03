@@ -1,7 +1,6 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {Product} from "./product.model";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -30,7 +29,6 @@ export class CartService {
 
     //ce bout de code sert juste de démonstration pour la mise en lien du cart dans le back end. j'ai pas syncro les entités
     this.http.post<any>(`${this.path}/products/${product.id}/addToCart`, product).subscribe()
-
   }
 
   get(): { product: Product, quantity: number }[] {
@@ -48,7 +46,6 @@ export class CartService {
   }
 
   removeFromCart(product: Product) {
-    console.log('test')
     this._cart.set(
       this.cart().filter((el)=> el.product.internalReference !== product.internalReference)
     )
