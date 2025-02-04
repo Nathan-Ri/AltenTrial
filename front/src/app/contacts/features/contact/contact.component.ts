@@ -17,7 +17,7 @@ import {ChipsModule} from "primeng/chips";
   templateUrl: './contact.component.html',
 })
 export class ContactComponent {
-  messageService = inject(MessageService)
+  messageService: MessageService = inject(MessageService)
   protected formGroup: FormGroup;
 
   constructor() {

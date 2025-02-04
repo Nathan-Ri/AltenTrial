@@ -20,9 +20,6 @@ export class AuthService {
 
   login(payload: { email: string | undefined; password: string | undefined }) {
     return this.http.post<{email:string, token: string, expires_at: string}>(`${this.path}/authenticate/login`, payload).pipe(
-      catchError((err)=>{
-        return of(err)
-      }),
       tap((tokenData) => localStorage.setItem('auth_token', tokenData.token))
     )
   }

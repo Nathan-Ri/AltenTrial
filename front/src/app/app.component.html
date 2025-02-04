@@ -2,13 +2,6 @@
   <div class="p-toolbar-group-start">
     <img src="assets/icons/icon-72x72.png" alt="logo"/>
   </div>
-  <div>
-    <p-button
-    (onClick)="dialogVisible = true"
-    >
-      connect
-    </p-button>
-  </div>
   <div class="p-toolbar-group-center">
     {{ title }}
   </div>
@@ -32,23 +25,6 @@
     </div>
   </ng-template>
 </p-splitter>
-
-
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '25rem' }">
-  <span class="p-text-secondary block mb-8">Update your information.</span>
-  <div class="flex items-center gap-4 mb-4">
-    <label for="email" class="font-semibold w-24">email</label>
-    <input pInputText id="email" class="flex-auto" autocomplete="off"  [(ngModel)]="email" />
-  </div>
-  <div class="flex items-center gap-4 mb-8">
-    <label for="password" class="font-semibold w-24">Password</label>
-    <input pInputText id="password" class="flex-auto" autocomplete="off"  [(ngModel)]="password"/>
-  </div>
-  <div class="flex justify-end gap-2">
-    <p-button label="Cancel" severity="secondary" (click)="dialogVisible = false" />
-    <p-button label="Save" (click)="login()" />
-  </div>
-</p-dialog>
 
 <p-dialog [(visible)]="cartVisible" [style]="{ width: '25rem' }">
   <app-cart></app-cart>

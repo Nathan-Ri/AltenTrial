@@ -1,1 +1,18 @@
-<p>connection works!</p>
+
+<form [formGroup]="loginForm" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+  <div class="mb-4">
+    <label for="email" class="block text-gray-600 font-medium mb-1">Email</label>
+    <input pInputText id="email" class="flex-auto" type="email" autocomplete="off" formControlName="email"/>
+  </div>
+
+  <div class="mb-4">
+    <label for="password" class="block text-gray-600 font-medium mb-1">Password</label>
+    <input pInputText id="password" class="flex-auto" type="password" autocomplete="off" formControlName="password"/>
+  </div>
+
+  <div class="text-center">
+    <p-button label="Save" (click)="login()" [disabled]="loginForm.invalid"/>
+  </div>
+</form>
+
+<p-toast/>

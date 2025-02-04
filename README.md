@@ -3,7 +3,9 @@
 
 ## Lancement de l'application
 
-Pour les tests lancer le server en local: 
+Pour les tests lancer le server en local:
+- installer les dépendences : npm install, composer install
+- il faut aussi l'utilitaire symfony (dans le path)
 - ng serve depuis le dossier front
 - symfony server:start depuis le dossier Alten-eshop du dossier back
 
