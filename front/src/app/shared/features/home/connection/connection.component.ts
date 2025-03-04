@@ -18,6 +18,7 @@ import {MessageService} from "primeng/api";
   styleUrl: './connection.component.css'
 })
 export class ConnectionComponent {
+
   messageService: MessageService = inject(MessageService)
   loginForm: FormGroup;
   constructor(private formBuilder: FormBuilder) {
