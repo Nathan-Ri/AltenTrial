@@ -38,7 +38,11 @@ class ProductController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
     {
-        $product = $serializer->deserialize($request->getContent(), Product::class, 'json');
+        try{
+            $product = $serializer->deserialize($request->getContent(), Product::class, 'json');
+        } catch(\Exception $e) {
+            return new JsonResponse(['error' => 'Données invalides'], Response::HTTP_BAD_REQUEST);            
+        }
         $entityManager->persist($product);
         $entityManager->flush();
 
@@ -49,8 +53,11 @@ class ProductController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function update(Request $request, Product $product, EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
     {
-        $serializer->deserialize($request->getContent(), Product::class, 'json', ['object_to_populate' => $product]);
-        $entityManager->persist($product);
+        try{
+            $serializer->deserialize($request->getContent(), Product::class, 'json', ['product' => $product]);
+        } catch(\Exception $e) {
+            return new JsonResponse(['error' => 'Données invalides'], Response::HTTP_BAD_REQUEST);            
+        }
         $entityManager->flush();
 
         return new JsonResponse(['message' => 'Produit mis à jour'], Response::HTTP_OK);
@@ -60,13 +67,15 @@ class ProductController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Product $product, EntityManagerInterface $entityManager): JsonResponse
     {
+        if (!$product) {
+            return $this->json(['error' => 'Produit non trouvé'], Response::HTTP_NOT_FOUND);
+        }
         $entityManager->remove($product);
         $entityManager->flush();
-
         return new JsonResponse(['message' => 'Produit supprimé'], Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/{id}/addToCart', name: 'delete', methods: ['POST'])]
+    #[Route('/{id}/addToCart', name: 'add_to_cart', methods: ['POST'])]
     public function addToCart(#[CurrentUser] ?UserInterface $user, Product $product, EntityManagerInterface $entityManager): JsonResponse
     {
         if (!$user) {
