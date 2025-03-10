@@ -55,6 +55,6 @@ class AccessTokenAuthenticator extends AbstractAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         // TODO: Implement onAuthenticationFailure() method.
-        return new Response('Authenticated', Response::HTTP_UNAUTHORIZED);
+        return new Response('Unauthenticated', Response::HTTP_UNAUTHORIZED);
     }
 }

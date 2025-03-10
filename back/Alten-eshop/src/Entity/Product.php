@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -19,6 +20,7 @@ class Product
 
     #[ORM\Column(length: 255)]
     #[Groups(['product:read'])]
+    #[Assert\Length(min:5)]
     private ?string $code = null;
 
     #[ORM\Column(length: 255)]

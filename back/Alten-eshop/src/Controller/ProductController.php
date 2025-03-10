@@ -75,29 +75,4 @@ class ProductController extends AbstractController
         return new JsonResponse(['message' => 'Produit supprimé'], Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/{id}/addToCart', name: 'add_to_cart', methods: ['POST'])]
-    public function addToCart(#[CurrentUser] ?UserInterface $user, Product $product, EntityManagerInterface $entityManager): JsonResponse
-    {
-        if (!$user) {
-            return new JsonResponse(['error' => 'Utilisateur non authentifié'], Response::HTTP_UNAUTHORIZED);
-        }
-        $existingCartItem = $entityManager->getRepository(UserCart::class)->findOneBy([
-            'user' => $user,
-            'product' => $product
-        ]);
-
-        if ($existingCartItem) {
-            $existingCartItem->setQuantity($existingCartItem->getQuantity() + 1);
-        } else {
-            $cartItem = new UserCart();
-            $cartItem->setProduct($product);
-            $cartItem->setUser($user);
-            $cartItem->setQuantity(1);
-            $entityManager->persist($cartItem);
-        }
-
-        $entityManager->flush();
-
-        return new JsonResponse(['message' => 'Produit ajouté au panier'], Response::HTTP_OK);
-    }
 }

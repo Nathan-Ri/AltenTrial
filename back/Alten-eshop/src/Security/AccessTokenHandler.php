@@ -16,15 +16,11 @@ class AccessTokenHandler
 
     public function getUserBadgeFrom(string $accessToken): UserBadge
     {
-        // e.g. query the "access token" database to search for this token
         $accessToken = $this->repository->findOneByValue($accessToken);
         if (null === $accessToken || !$accessToken->isValid()) {
             throw new BadCredentialsException('Invalid credentials.');
         }
 
-        // and return a UserBadge object containing the user identifier from the found token
-        // (this is the same identifier used in Security configuration; it can be an email,
-        // a UUID, a username, a database ID, etc.)
         return new UserBadge($accessToken->getUserId());
     }
 }

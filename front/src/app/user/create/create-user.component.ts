@@ -29,7 +29,6 @@ export class CreateUserComponent {
 
   onSubmit() {
     this.userService.create(this.formGroup.value).subscribe()
-    // this.formGroup.reset()
   }
 
 }

@@ -19,7 +19,7 @@ export class CartService {
   addToCart(product: Product): void {
     let cart = this.cart()
     let productInCart = cart.find((el) => el.product.internalReference === product.internalReference)
-    if(productInCart){
+    if (productInCart) {
       productInCart.quantity++
     } else {
       cart.push({product: product, quantity: 1})
@@ -28,7 +28,7 @@ export class CartService {
     this.updateTotal()
 
     //ce bout de code sert juste de démonstration pour la mise en lien du cart dans le back end. j'ai pas syncro les entités
-    this.http.post<any>(`${this.path}/products/${product.id}/addToCart`, product).subscribe()
+    this.http.post<any>(`${this.path}/carts/${product.id}/addToCart`, product).subscribe()
   }
 
   get(): { product: Product, quantity: number }[] {
@@ -47,7 +47,7 @@ export class CartService {
 
   removeFromCart(product: Product) {
     this._cart.set(
-      this.cart().filter((el)=> el.product.internalReference !== product.internalReference)
+      this.cart().filter((el) => el.product.internalReference !== product.internalReference)
     )
     this.updateTotal()
   }

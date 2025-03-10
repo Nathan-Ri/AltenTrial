@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\AccessToken;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +18,7 @@ class ApiLoginController extends AbstractController
     public function index(#[CurrentUser] ?UserInterface $user, EntityManagerInterface $entityManager): JsonResponse
     {
         if (null === $user) {
-            return $this->json(['message' => 'missing credentials :)'], Response::HTTP_UNAUTHORIZED);
+            return $this->json(['message' => 'missing credentials'], Response::HTTP_UNAUTHORIZED);
         }
 
         // Génération du token
